@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--   -->
+<html>
+  <head>
+    <title>Ajax</title>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  </head>
+  
+  <body>  
+
+
+    <div id="notes">
+        
+        <textarea  id="textarea" name="notes" cols="40" rows="10"></textarea>
+        
+        <input id="save" type="submit" value="Save" onclick="saveNotes()">
+      </div>
+      <button onclick="document.location='/'">next page</button>
+
+
+    <script>   
+
+      function success(data) { 
+        //don't need to do anything in the callback
+      }
+      function saveNotes(){
+          $.get("/saveNotes", {notes: $("#textarea").val()}, success); 
+        return false;
+      }
+      function retNotes(data) {
+        console.log(data.notes);
+          $("#textarea").val(data.notes); 
+      }
+          
+          
+      $(document).ready(function(){ 
+        $.get("/retNotes",retNotes);
+      });          
+    </script>      
+  </body>
+</html>  
